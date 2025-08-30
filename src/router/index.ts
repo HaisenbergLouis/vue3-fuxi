@@ -3,6 +3,7 @@ import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router
 import Home from '@/views/Home.vue'
 import News from '@/views/News.vue'
 import About from '@/views/About.vue'
+// import { useUserStore } from '@/stores/user'
 
 const router = createRouter({
   history: createWebHashHistory(),
