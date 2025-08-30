@@ -2,17 +2,6 @@
   <div class="over">
 
     <div class="box">
-      <div class="head">
-        <div class="register">
-          <button @click="showRegister = true">注册</button>
-        </div>
-        <div class="login">
-          <button v-if="!isLogin" @click="showLogin = true">登录</button>
-          <span v-if="isLogin">欢迎，{{ username }}</span>
-          <button v-if="isLogin" @click="handleLogout">退出</button>
-        </div>
-      </div>
-
 
       <div class="nav">
         <ul>
@@ -25,8 +14,15 @@
           <li>
             <RouterLink to="/about">关于</RouterLink>
           </li>
-
         </ul>
+        <div class="register">
+          <button @click="showRegister = true">注册</button>
+        </div>
+        <div class="login">
+          <button v-if="!isLogin" @click="showLogin = true">登录</button>
+          <span v-if="isLogin">欢迎，{{ username }}</span>
+          <button v-if="isLogin" @click="handleLogout">退出</button>
+        </div>
       </div>
       <div class="display">
         <RouterView></RouterView>
@@ -64,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { routeLocationKey, RouterLink, RouterView } from 'vue-router'
 import { ref } from 'vue'
 
 // 登录相关
@@ -117,45 +113,34 @@ function handleRegister() {
 }
 
 .over {
-  margin: 0;
-  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  width: 99vw;
-  background-color: aqua;
+  width: 100vw;
+  /* background-color: aqua; */
 }
 
 .box {
   display: flex;
   align-items: center;
-
   flex-direction: column;
   height: 100%;
   width: 100%;
-  background-color: rgb(230, 180, 17);
-}
-
-.head {
-  height: 5%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.head .register,
-.login {
-  margin-right: 20px;
+  /* background-color: rgb(230, 180, 17); */
 }
 
 .nav {
+  /* background-color: antiquewhite; */
+  background-image: url(./images/微信图片_20250328210846.jpg);
+  background-size: cover;
+  background-position: 60% 53%;
   width: 100%;
-  height: 25%;
+  height: 15%;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
   height: 100px;
 }
 
@@ -165,26 +150,65 @@ function handleRegister() {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 70%;
+  height: 100%;
 }
 
 .nav ul {
-  background-color: rgb(10, 215, 72);
+  /* background-color: rgb(10, 215, 72); */
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   list-style: none;
 }
 
 .nav ul li {
+  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: aliceblue;
+  background-color: rgba(250, 235, 215, 0.547);
+  background-color: opc;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  margin-right: 10px;
   width: 100px;
   height: 50px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
+}
+
+/* routerlink就是加强版的a标签 */
+.router-link-active {
+  text-decoration: none;
+  color: saddlebrown;
+}
+
+.nav .register,
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100%;
+  /* background-color: blue; */
+  font-size: 30px;
+
+}
+
+.nav button {
+  background-color: rgba(250, 235, 215, 0.547);
+  background-color: opc;
+  font-size: 15px;
+  width: 80px;
+  height: 50px;
+  border-radius: 10px;
 }
 
 .modal {
@@ -209,6 +233,29 @@ function handleRegister() {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form input {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #42b983;
+  color: white;
+  cursor: pointer;
 }
 
 .error {
