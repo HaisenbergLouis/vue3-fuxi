@@ -1,13 +1,8 @@
 <template>
-  <div class="about">
-    关于
-  </div>
+  <div class="about">关于</div>
 </template>
 
-<script setup lang="ts">
-
-
-</script>
+<script setup lang="ts"></script>
 
 <style>
 .about {

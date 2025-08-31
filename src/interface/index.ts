@@ -1,0 +1,6 @@
+export interface ITasklist {
+  id: string
+  title: string
+  status: 'OK' | 'start' | 'ing' | 'err'
+  createdAt: Date
+}

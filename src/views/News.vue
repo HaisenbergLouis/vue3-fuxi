@@ -1,13 +1,8 @@
 <template>
-  <div class="news">
-    新闻
-  </div>
+  <div class="news">新闻</div>
 </template>
 
-<script setup lang="ts">
-
-
-</script>
+<script setup lang="ts"></script>
 
 <style>
 .news {
