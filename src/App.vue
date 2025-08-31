@@ -1,8 +1,6 @@
 <template>
   <div class="over">
-
     <div class="box">
-
       <div class="nav">
         <ul>
           <li>
@@ -27,13 +25,15 @@
       <div class="display">
         <RouterView></RouterView>
       </div>
-
     </div>
     <!-- 注册弹窗 -->
     <div v-if="showRegister" class="modal">
       <div class="modal-content">
         <h3>注册</h3>
         <form @submit.prevent="handleRegister">
+          <!-- placeholder是提醒用户填什么东西
+           required表示该输入框为必填项
+           type指定输入内容的类型 -->
           <input v-model="registerForm.username" placeholder="用户名" required />
           <input v-model="registerForm.password" type="password" placeholder="密码" required />
           <button type="submit">注册</button>
@@ -76,10 +76,7 @@ const registerForm = ref({ username: '', password: '' })
 const registerError = ref('')
 
 function handleLogin() {
-  if (
-    loginForm.value.username === 'admin' &&
-    loginForm.value.password === '1234'
-  ) {
+  if (loginForm.value.username === 'admin' && loginForm.value.password === '1234') {
     isLogin.value = true
     username.value = loginForm.value.username
     loginError.value = ''
@@ -145,7 +142,7 @@ function handleRegister() {
 }
 
 .display {
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,6 +157,7 @@ function handleRegister() {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  margin-right: 30px;
   list-style: none;
 }
 
@@ -173,7 +171,7 @@ function handleRegister() {
   border-style: solid;
   border-width: 1px;
   border-radius: 10px;
-  margin-right: 10px;
+  margin-right: 20px;
   width: 100px;
   height: 50px;
 }
@@ -199,9 +197,19 @@ a {
   height: 100%;
   /* background-color: blue; */
   font-size: 30px;
-
+  margin-right: 30px;
 }
+.login span {
+  width: 200px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  background-color: #fff;
+  font-size: 15px;
+  margin-right: 10px;
+}
 .nav button {
   background-color: rgba(250, 235, 215, 0.547);
   background-color: opc;
