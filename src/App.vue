@@ -17,9 +17,9 @@
           <button @click="showRegister = true">注册</button>
         </div>
         <div class="login">
-          <button v-if="!isLogin" @click="showLogin = true">登录</button>
-          <span v-if="isLogin">欢迎，{{ username }}</span>
-          <button v-if="isLogin" @click="handleLogout">退出</button>
+          <button v-if="!userStore.isLogin" @click="showLogin = true">登录</button>
+          <span v-if="userStore.isLogin">欢迎，{{ userStore.username }}</span>
+          <button v-if="userStore.isLogin" @click="userStore.logout">退出</button>
         </div>
       </div>
       <div class="display">
@@ -62,13 +62,13 @@
 <script setup lang="ts">
 import { routeLocationKey, RouterLink, RouterView } from 'vue-router'
 import { ref } from 'vue'
+import { useUserStore } from './stores/user'
 
+const userStore = useUserStore()
 // 登录相关
 const showLogin = ref(false)
 const loginForm = ref({ username: '', password: '' })
 const loginError = ref('')
-const isLogin = ref(false)
-const username = ref('')
 
 // 注册相关
 const showRegister = ref(false)
@@ -77,18 +77,13 @@ const registerError = ref('')
 
 function handleLogin() {
   if (loginForm.value.username === 'admin' && loginForm.value.password === '1234') {
-    isLogin.value = true
-    username.value = loginForm.value.username
+    userStore.isLogin = true
+    userStore.username = loginForm.value.username
     loginError.value = ''
     showLogin.value = false
   } else {
     loginError.value = '用户名或密码错误'
   }
-}
-
-function handleLogout() {
-  isLogin.value = false
-  username.value = ''
 }
 
 function handleRegister() {
