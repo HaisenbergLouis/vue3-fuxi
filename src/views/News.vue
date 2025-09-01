@@ -6,8 +6,8 @@
 
 <style>
 .news {
-  height: 700px;
-  width: 1000px;
+  height: 90%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

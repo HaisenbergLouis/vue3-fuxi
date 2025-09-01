@@ -18,7 +18,8 @@
         </div>
         <div class="login">
           <button v-if="!userStore.isLogin" @click="showLogin = true">登录</button>
-          <span v-if="userStore.isLogin">欢迎，{{ userStore.username }}</span>
+          <span v-if="userStore.isLogin">{{}}</span>
+          <!-- <span v-if="userStore.isLogin">欢迎，{{ userStore.username }}</span> -->
           <button v-if="userStore.isLogin" @click="userStore.logout">退出</button>
         </div>
       </div>
@@ -75,32 +76,9 @@ const loginError = ref('')
 const showRegister = ref(false)
 const registerForm = ref({ username: '', password: '' })
 const registerError = ref('')
-const taskData: ITasklist[] = [
-  {
-    id: '0001',
-    title: '第一个认为你',
-    status: 'start',
-    createdAt: new Date(),
-  },
-  {
-    id: '0002',
-    title: '第2个认为你',
-    status: 'OK',
-    createdAt: new Date(),
-  },
-  {
-    id: '0003',
-    title: '第3个认为你',
-    status: 'err',
-    createdAt: new Date(),
-  },
-  {
-    id: '0004',
-    title: '第4个认为你',
-    status: 'ing',
-    createdAt: new Date(),
-  },
-]
+
+var zhuce = document.getElementsByClassName('')
+
 function handleLogin() {
   if (loginForm.value.username === 'admin' && loginForm.value.password === '1234') {
     userStore.isLogin = true
@@ -135,7 +113,7 @@ function handleRegister() {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   /* background-color: aqua; */
 }
 
