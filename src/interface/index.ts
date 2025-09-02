@@ -3,4 +3,5 @@ export interface ITasklist {
   title: string
   status: 'OK' | 'start' | 'ing' | 'err'
   createdAt: string
+  isfinish: false | true
 }

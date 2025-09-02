@@ -2,54 +2,90 @@
   <div class="home">
     <p class="home-title">任务列表</p>
     <ul class="task">
-      <li v-for="task in taskData" class="task-list">
+      <li v-for="(task, index) in taskData" :key="task.id" class="task-list">
         <p class="task-title">{{ task.title }}</p>
-        <div class="last">
-          <span class="task-createdAt"
-            ><span class="task-createdAt-title"> 创建日期 </span>
-            <p class="task-createdAt-date">{{ task.createdAt }}</p>
-          </span>
-          <button class="task-modify-btu" @click="modify">修改</button>
-          <button class="task-delete-btu" @click="erase">删除</button>
-        </div>
+        <span class="task-createdAt"
+          ><span class="task-createdAt-title"> 创建日期 </span>
+          <p class="task-createdAt-date">{{ task.createdAt }}</p>
+        </span>
+        <button class="task-finish-btu" @click="finish">完成</button>
+        <button class="task-modify-btu" @click="modify">修改</button>
+        <button class="task-delete-btu" @click="erase(index)">删除</button>
       </li>
     </ul>
+  </div>
+  <!-- 修改弹窗 -->
+  <div class="over" v-if="showModify">
+    <div class="contentModify">
+      <span class="contentTitle">
+        <p>修改</p>
+        <button class="btn" @click="cancel">X</button>
+      </span>
+      <div class="content">
+        {{ useUserStore.$id }}
+      </div>
+      <div class="finish" @click="finishModify"><span>完成</span></div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { ITasklist } from '@/interface'
+import { isContinueStatement } from 'typescript'
+import { useUserStore } from '@/stores/user'
 
+const showModify = ref(false)
 const taskData: ITasklist[] = [
   {
     id: '0001',
-    title: '第一个认为你',
+    title: '第1个任务',
     status: 'start',
     createdAt: new Date().toDateString(),
+    isfinish: false,
   },
   {
     id: '0002',
-    title: '第2个认为你',
+    title: '第2个任务',
     status: 'OK',
     createdAt: new Date().toDateString(),
+    isfinish: false,
   },
   {
     id: '0003',
-    title: '第3个认为你',
+    title: '第3个任务',
     status: 'err',
     createdAt: new Date().toDateString(),
+    isfinish: false,
   },
   {
     id: '0004',
-    title: '第4个认为你',
+    title: '第4个任务',
     status: 'ing',
     createdAt: new Date().toDateString(),
+    isfinish: false,
   },
 ]
-function modify(e: Event) {
-  console.log(e.target)
+// console.log(taskData[0].title)
+// console.log(useUserStore)
+// 完成任务删除该条任务
+function finish() {}
+// 修改按钮，弹出修改弹窗
+function modify() {
+  showModify.value = true
 }
-function erase() {}
+// 修改弹窗,取消按钮功能
+function cancel() {
+  showModify.value = false
+}
+function erase(index: number) {
+  taskData.splice(index, 1)
+  alert('任务已删除')
+}
+function finishModify() {
+  showModify.value = false
+  alert('修改成功')
+}
 </script>
 
 <style scoped>
@@ -80,6 +116,11 @@ p {
 }
 
 .task .task-list {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
   height: 5rem;
   border: #eaeaea 1px solid;
@@ -106,6 +147,7 @@ p {
 }
 
 .task-createdAt-title {
+  width: 10rem;
   color: #1a1a1a;
 }
 
@@ -115,6 +157,8 @@ p {
 }
 
 .task-modify-btu {
+  position: absolute;
+  right: 6rem;
   border-radius: 5px;
   border: none;
   color: #ffffff;
@@ -122,7 +166,6 @@ p {
   height: 2rem;
   width: 4rem;
   margin-left: 1.2rem;
-
   cursor: pointer;
 }
 
@@ -134,5 +177,75 @@ p {
   color: #fff;
   background-color: #d11a14;
   margin-left: 1.2rem;
+}
+.task-finish-btu {
+  position: absolute;
+  right: 12rem;
+  height: 2rem;
+  width: 4rem;
+  border-radius: 5px;
+  border: black solid;
+  color: #000000;
+  background-color: #ffffff;
+  margin-left: 1.2rem;
+}
+
+/* 修改弹窗 */
+.over {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #8d282800;
+  width: 100vw;
+  height: 100vh;
+}
+.contentModify {
+  padding: 2rem;
+  height: 60%;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #0022ff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px black;
+}
+.contentTitle {
+  background-color: #fff;
+  /* box-shadow: 0 0 10px black; */
+  border-radius: 10px 10px 0 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10%;
+  width: 100%;
+}
+.btn {
+  position: absolute;
+  right: 1rem;
+}
+.content {
+  /* padding: 1em; */
+  height: 80%;
+  width: 100%;
+  box-shadow: 0 0 10px black inset;
+  background-color: #fff;
+}
+.finish {
+  height: 10%;
+  width: 100%;
+  background-color: #fff;
+  /* box-shadow: 0 0 10px black inset; */
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
